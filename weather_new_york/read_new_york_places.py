@@ -5,7 +5,6 @@ def read_places():
     workbook = xlrd.open_workbook('places.xlsx')
     sheet_names = workbook.sheet_names()
     sheet = workbook.sheet_by_name(sheet_names[0])
-
     places_dict = dict()
     for row_idx in range(sheet.nrows):
         if row_idx == 0:
