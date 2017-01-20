@@ -33,6 +33,7 @@ def process_request(request_url,db,code,insert_time,error_file):
         error_file.write('{\n')
         error_file.write('time:{} \n'.format(insert_time.__str__()))
         error_file.write('code: {}\n'.format(code))
+        error_file.write('request url: {}\n'.format(request_url))
         error_file.write('error type: {}\n'.format(error_type))
         error_file.write('error desc: {}\n'.format(error_desc))
         error_file.write('}\n')
@@ -61,15 +62,16 @@ def process_request(request_url,db,code,insert_time,error_file):
             return 0
     return 1
 
-db = pymysql.connect('localhost', 'root', '', 'weather')
+db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
 insert_time = datetime.datetime.now()
 counter = 0
 error = 0
 error_file = open(os.path.join(os.path.dirname(__file__), 'wunder.log'),'a')
 error_file.write('begin to crawl wunder at {}'.format(insert_time.__str__()))
 for place in places.values():
+    counter += 1
     code = place.get_code()
-    print('processing wunder',code)
+    print('processing wunder {}, {}/{}'.format(code,counter,len(places.values())))
     lat = place.get_lat()
     lon = place.get_lon()
     request_url = make_request_url(lat,lon)
@@ -80,7 +82,6 @@ for place in places.values():
     status_code = process_request(request_url,db,code,insert_time,error_file)
     if status_code == 0:
         error+=1
-    counter+=1
     if counter % 9 == 0:
         time.sleep(100)
 db.close()

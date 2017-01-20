@@ -14,7 +14,7 @@ places = read_new_york_places.read_places()
 #     print()
 
 def populate_places_to_database(places):
-    db = pymysql.connect('localhost', 'root', '', 'weather')
+    db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
     cursor = db.cursor()
     sql_string = '''
     insert into new_york (code,name,lat,lon,zip,url) VALUES ('%s','%s','%s','%s','%s','%s')
@@ -29,7 +29,7 @@ def populate_places_to_database(places):
 
 ##log all weathers
 def log_weather():
-    db = pymysql.connect('localhost', 'root', '', 'weather')
+    db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
     places = read_new_york_places.read_places()
     for row_entry in places.values():
         res = request.urlopen(row_entry.get_gov_url())
@@ -123,6 +123,10 @@ def check_entry_exist(db,code,observation_time):
         return False
 if '__main__' == __name__:
     log_weather()
+    # populate_places_to_database(places)
+
+
+
     # form = '''%a, %d %m %Y %H:%M:%S %Z'''
     # d = datetime.datetime.strptime('Mon, 16 Jan 2017 20:51:00 -0500', form)
     # form = '''%a, %d %b %Y %H:%M:%S %z'''
