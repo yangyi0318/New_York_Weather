@@ -5,6 +5,7 @@ import read_new_york_places
 import time
 import pymysql
 import os
+import database_config
 
 places = read_new_york_places.read_places()
 insert_sql = '''
@@ -62,7 +63,8 @@ def process_request(request_url,db,code,insert_time,error_file):
             return 0
     return 1
 
-db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
+db = pymysql.connect(database_config.get_host(), database_config.get_username(), database_config.get_password(),
+                         database_config.get_database())
 insert_time = datetime.datetime.now()
 counter = 0
 error = 0

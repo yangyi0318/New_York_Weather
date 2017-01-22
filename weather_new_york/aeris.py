@@ -4,6 +4,7 @@ import json
 import pymysql
 import os
 import read_new_york_places
+import database_config
 
 
 date_form = '''%Y-%m-%dT%H:%M:%S'''
@@ -68,7 +69,7 @@ right_url = 'http://api.aerisapi.com/forecasts/40.78333,-73.96667?client_id=86iV
 # form = '''%Y-%m-%dT%H:%M:%S'''
 # print(dstring)
 # print(datetime.datetime.strptime(dstring,form))
-db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
+db = pymysql.connect(database_config.get_host(), database_config.get_username(), database_config.get_password(), database_config.get_database())
 insert_time = datetime.datetime.now()
 error_file = error_file = open(os.path.join(os.path.dirname(__file__), 'aeris.log'),'a')
 error_file.write('begin to crawl aeris at {}\n'.format(insert_time.__str__()))

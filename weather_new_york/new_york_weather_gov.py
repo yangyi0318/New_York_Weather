@@ -4,6 +4,8 @@ from urllib import request
 import xml.dom.minidom
 import time
 import datetime
+import database_config
+
 
 places = read_new_york_places.read_places()
 
@@ -14,7 +16,8 @@ places = read_new_york_places.read_places()
 #     print()
 
 def populate_places_to_database(places):
-    db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
+    db = pymysql.connect(database_config.get_host(), database_config.get_username(), database_config.get_password(),
+                         database_config.get_database())
     cursor = db.cursor()
     sql_string = '''
     insert into new_york (code,name,lat,lon,zip,url) VALUES ('%s','%s','%s','%s','%s','%s')
@@ -29,7 +32,8 @@ def populate_places_to_database(places):
 
 ##log all weathers
 def log_weather():
-    db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
+    db = pymysql.connect(database_config.get_host(), database_config.get_username(), database_config.get_password(),
+                         database_config.get_database())
     places = read_new_york_places.read_places()
     for row_entry in places.values():
         res = request.urlopen(row_entry.get_gov_url())

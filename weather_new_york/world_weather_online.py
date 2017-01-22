@@ -4,7 +4,7 @@ import json
 import pymysql
 import os
 import read_new_york_places
-
+import database_config
 
 places = read_new_york_places.read_places()
 insert_sql = '''
@@ -68,7 +68,7 @@ error_request_url = 'http://api.worldweatheronline.com/premium/v1/weather.ashx?k
 right_request_url = 'http://api.worldweatheronline.com/premium/v1/weather.ashx?key=fd24212fbee540bb93e04810170501&q=42.74722,-73.79912&num_of_days=5&tp=1&format=json'
 
 
-db = pymysql.connect('localhost', 'root', 'Aa19890318', 'weather')
+db = pymysql.connect(database_config.get_host(), database_config.get_username(), database_config.get_password(), database_config.get_database())
 insert_time = datetime.datetime.now()
 error_file = error_file = open(os.path.join(os.path.dirname(__file__), 'world_weather_online.log'),'a')
 error_file.write('begin to crawl world weather online at {}\n'.format(insert_time.__str__()))
