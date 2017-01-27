@@ -39,6 +39,7 @@ def process_request(request_url,db,code,insert_time,error_file):
         for data in hourly_data:
             ts = int(data['time'])
             forecast_time = ts_to_eastern(ts)
+            forecast_time=forecast_time.replace(tzinfo=None)
             outlook = data['summary']
             temp = data['temperature']
             temp = f_to_c(temp)

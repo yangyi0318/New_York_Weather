@@ -1,10 +1,2 @@
-begin to crawl wunder at 2017-01-18 23:47:20.797804{
-time:2017-01-18 23:47:20.797804 
-code: KART
-error type: querynotfound
-error desc: No cities match your search query
-}
-finish crawling at 2017-01-18 23:47:20.797804, error 1
-
-begin to crawl wunder at 2017-01-19 13:30:26.698515finish crawling at 2017-01-19 13:30:26.698515, error 0
+begin to crawl wunder at 2017-01-22 22:33:10.000196finish crawling at 2017-01-22 22:33:10.000196, error 0
 
