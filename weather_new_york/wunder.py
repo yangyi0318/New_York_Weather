@@ -5,7 +5,6 @@ import read_new_york_places
 import time
 import pymysql
 import os
-import database_config
 
 places = read_new_york_places.read_places()
 insert_sql = '''
