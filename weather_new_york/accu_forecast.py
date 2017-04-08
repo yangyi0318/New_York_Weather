@@ -84,6 +84,7 @@ if __name__ == '__main__':
         except Exception as e:
             logging.error('sql error %s',e)
             db.commit()
+        break
     db.close()
     logging.info('crawl finished')
 
