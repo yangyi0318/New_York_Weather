@@ -3,7 +3,7 @@ import basic_functions
 
 def create_accu_forecast(db):
     sql_query = '''
-    create table new_york_weather.accu_forecast if not exists(
+    create table if not exists new_york_weather.accu_forecast (
 	sys_id int not null auto_increment
 		primary key,
 	post_code varchar(20) null,
@@ -24,7 +24,7 @@ if __name__ == '__main__':
                          basic_functions.Database_Config.get_username(),
                          basic_functions.Database_Config.get_password(),
                          basic_functions.Database_Config.get_database())
-    create_accu_forecast()
+    create_accu_forecast(db)
     db.commit()
 
     db.close()

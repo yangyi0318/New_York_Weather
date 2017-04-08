@@ -3,7 +3,7 @@ import os
 
 class Database_Config(object):
     config = configparser.ConfigParser()
-    config.read('dbconfig.properties')
+    config.read(os.path.join(os.path.dirname(__file__),'data/dbconfig.properties'))
     # print(config.get('DatabaseSection','database.username'))
     @staticmethod
     def get_host():
