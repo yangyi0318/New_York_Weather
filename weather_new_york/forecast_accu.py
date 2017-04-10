@@ -7,15 +7,11 @@ import datetime
 import pymysql
 import logging
 
-logging.basicConfig(filename=os.path.join(os.path.dirname(__file__),'log/accu_forecast.log'),
-                            filemode='a',
-                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                            datefmt='%H:%M:%S',
-                            level=logging.DEBUG)
+
 
 class MakeURL(object):
     base = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/'
-    api_key = 'llcQpcesWLPhLpkpZQTELTwNQy3J2WzA'
+    api_key = 'Y9TWRFuuZ2PCl011O9us2FruuNZv6cjI'
 
     def get_url(self,post_code,location_key):
         params = {'apikey': MakeURL.api_key,'details':'true'}
@@ -30,10 +26,10 @@ class MakeURL(object):
 def process_request(request_url,post_code,location_key):
     try:
         res = request.urlopen(request_url)
+        res_string = str(res.read(), 'utf-8')
     except Exception as e:
-        logging.error('process request %s, %post code %s, network error: %s \n' %(request_url,post_code,e))
+        logging.error('process request %s, post code %s, network error: %s \n' %(request_url,post_code,e))
         print(e)
-    res_string = str(res.read(), 'utf-8')
     json_obj = json.loads(res_string)
     print(len(json_obj))
     results = []
@@ -54,6 +50,12 @@ def process_request(request_url,post_code,location_key):
     return results
 
 if __name__ == '__main__':
+    logging.basicConfig(filename=os.path.join(os.path.dirname(__file__), 'log/accu_forecast.log'),
+                        filemode='a',
+                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S',
+                        level=logging.DEBUG)
+
     location_keys = basic_functions.read_accu_keys()
     u = MakeURL()
     sql_query = '''
@@ -81,10 +83,11 @@ if __name__ == '__main__':
                 db.cursor().execute(
                     sql_query % (result[0],result[1],result[2],result[3],result[4],result[5],result[6])
                 )
+            db.commit()
         except Exception as e:
             logging.error('sql error %s',e)
-            db.commit()
-        break
+            db.rollback()
+        # break
     db.close()
     logging.info('crawl finished')
 

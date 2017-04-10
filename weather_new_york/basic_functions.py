@@ -1,5 +1,7 @@
 import configparser
 import os
+import datetime
+from pytz import timezone
 
 class Database_Config(object):
     config = configparser.ConfigParser()
@@ -45,3 +47,13 @@ def read_accu_keys():
 
 def temperature_f2c(temperature_f):
     return float('%.1f' % ((float(temperature_f)-32)*0.5556))
+
+
+eastern = timezone(('US/Eastern'))
+def ts_to_eastern(ts):
+    eastern = timezone(('US/Eastern'))
+    return datetime.datetime.fromtimestamp(ts,eastern)
+
+if __name__ == '__main__':
+    print(temperature_f2c(47.7))
+    print(ts_to_eastern(1491777305))
