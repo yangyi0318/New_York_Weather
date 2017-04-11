@@ -1,5 +1,6 @@
 from math import radians, cos, sin, asin, sqrt
 import read_new_york_places
+import basic_functions
 
 def spherical_distance(lat1, lon1, lat2, lon2):
     """
@@ -18,6 +19,9 @@ def spherical_distance(lat1, lon1, lat2, lon2):
     return float(km)
 
 if __name__ == '__main__':
+
+    location_keys = basic_functions
+
     places = read_new_york_places.read_places()
     with open('distance_matrix.txt','w') as f:
         for idx,place in enumerate(places):

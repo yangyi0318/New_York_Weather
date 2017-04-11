@@ -13,3 +13,10 @@
 12:02:07,256 root ERROR process request http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/10453?apikey=llcQpcesWLPhLpkpZQTELTwNQy3J2WzA&details=true, post code 10453, network error: HTTP Error 503: Unauthorized 
 
 12:07:14,929 root INFO crawl finished
+14:01:25,538 root INFO crawl finished
+22:08:51,442 root INFO crawl finished
+22:36:02,407 root INFO crawl finished
+22:39:38,467 root INFO crawl finished
+22:39:44,973 root INFO crawl finished
+22:43:01,702 root INFO crawl finished
+08:45:14,102 root INFO crawl finished

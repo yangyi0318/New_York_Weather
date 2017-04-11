@@ -74,9 +74,9 @@ if __name__ == '__main__':
                          basic_functions.Database_Config.get_database())
     for key_tuple in location_keys:
         post_code = key_tuple[0]
-        location_key = key_tuple[0]
+        location_key = key_tuple[1]
+        print('post code %s location key %s'%(post_code,location_key))
         res_str = u.get_url(post_code,location_key)
-        print(res_str)
         results = process_request(res_str,post_code,location_key)
         try:
             for result in results:
@@ -87,7 +87,6 @@ if __name__ == '__main__':
         except Exception as e:
             logging.error('sql error %s',e)
             db.rollback()
-        # break
     db.close()
     logging.info('crawl finished')
 
